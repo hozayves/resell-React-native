@@ -13,18 +13,24 @@ import MyAccount from '@/screens/MyAccount'
 import RegisterScreen from '@/screens/RegisterScreen'
 import ViewImageScreen from '@/screens/ViewImageScreen'
 import WelcomeScreen from '@/screens/WelcomeScreen'
-import { useState } from 'react'
-import { StatusBar } from 'react-native'
-
-
-const categories = [
-    { label: 'Furniture', value: 1 },
-    { label: 'Clothing', value: 2 },
-    { label: 'Cameras', value: 3 }
-]
+import { useEffect, useState } from 'react'
+import { Image, StatusBar } from 'react-native'
+import * as ImagePicker from 'expo-image-picker'
+import * as Permission from 'expo-permissions'
+import Button from '@/components/button'
+import ImageInput from '@/components/ImageInput'
+import { createIconSetFromFontello } from '@expo/vector-icons'
+import ImageInputList from '@/components/ImageInputList'
 
 export default function App() {
-    const [category, setCategory] = useState(categories[0])
+    const [imageUris, setImageUris] = useState([])
+
+    const handleAdd = (uri) => {
+        setImageUris([...imageUris, uri])
+    }
+    const handleRemove = (uri) => {
+        setImageUris(imageUris.filter(image => image !== uri));
+    }
 
     return (
         <Screen>
