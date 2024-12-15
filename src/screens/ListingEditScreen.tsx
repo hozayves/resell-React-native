@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
+import * as Location from 'expo-location'
 
 import Screen from '@/components/Screen'
 import { AppForm, AppFormField, SubmitButton } from '@/components/forms'
@@ -18,17 +19,30 @@ const validationSchema = Yup.object().shape({
 })
 
 export default function ListingEditScreen() {
+    const [location, setLocation] = useState<{ latitude: number, longitude: number }>()
+    useEffect(() => {
+        async function getCurrentLocation() {
+            let { granted } = await Location.requestForegroundPermissionsAsync()
+            if (!granted) return
+            const result = await Location.getLastKnownPositionAsync()
+            if (result?.coords) {
+                setLocation({ latitude: result?.coords.latitude, longitude: result?.coords.longitude })
+            }
+
+        }
+        getCurrentLocation()
+    }, [])
     return (
         <Screen>
             <AppForm
                 initialValues={{ title: '', price: '', category: null, description: '', images: [] }}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => console.log(location)}
                 validationSchema={validationSchema}
             >
                 <FormImagePicker name="images" />
                 <AppFormField
                     placeholder='Title'
-                    autoCapitalize='characters'
+                    autoCapitalize='words'
                     autoComplete='cc-name'
                     name='title'
                     autoCorrect={true}
@@ -55,7 +69,7 @@ export default function ListingEditScreen() {
                 <AppFormField
                     placeholder='Description'
                     name='description'
-                    autoCapitalize='characters'
+                    autoCapitalize='sentences'
                     autoComplete='off'
                     autoCorrect={false}
                     textContentType='none'
