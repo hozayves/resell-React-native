@@ -9,6 +9,7 @@ import AppFormPicker from '@/components/forms/AppFormPicker'
 import { Items } from '@/constants/data'
 import CategoryPickerItem from '@/components/CategoryPickerItem'
 import FormImagePicker from '@/components/forms/FormImagePicker'
+import useLocation from '@/hooks/useLocation'
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().label("Title").min(1).max(255),
@@ -19,19 +20,7 @@ const validationSchema = Yup.object().shape({
 })
 
 export default function ListingEditScreen() {
-    const [location, setLocation] = useState<{ latitude: number, longitude: number }>()
-    useEffect(() => {
-        async function getCurrentLocation() {
-            let { granted } = await Location.requestForegroundPermissionsAsync()
-            if (!granted) return
-            const result = await Location.getLastKnownPositionAsync()
-            if (result?.coords) {
-                setLocation({ latitude: result?.coords.latitude, longitude: result?.coords.longitude })
-            }
-
-        }
-        getCurrentLocation()
-    }, [])
+    const location = useLocation()
     return (
         <Screen>
             <AppForm

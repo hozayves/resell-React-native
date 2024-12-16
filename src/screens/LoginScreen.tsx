@@ -6,6 +6,7 @@ import { Image, StyleSheet } from 'react-native'
 
 import Screen from '@/components/Screen'
 import { AppForm, AppFormField, SubmitButton } from '@/components/forms'
+import { useNavigation } from '@react-navigation/native'
 
 
 const validationSchema = Yup.object().shape({
@@ -14,7 +15,7 @@ const validationSchema = Yup.object().shape({
 })
 
 export default function LoginScreen() {
-
+    const navigation = useNavigation()
     return (
         <Screen>
             <Image
@@ -23,7 +24,10 @@ export default function LoginScreen() {
             />
             <AppForm
                 initialValues={{ email: '', password: '' }}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => {
+                    console.log(values)
+                    navigation.navigate("MainTab" as never)
+                }}
                 validationSchema={validationSchema}
             >
                 <AppFormField

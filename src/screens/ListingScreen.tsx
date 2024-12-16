@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, FlatList } from 'react-native'
 
 import Screen from '@/components/Screen'
 import Card from '@/components/card'
+import routes from '@/navigation/routes'
 
 const initialListings = [
     {
@@ -19,7 +20,7 @@ const initialListings = [
     }
 ]
 
-export default function ListingScreen() {
+export default function ListingScreen({ navigation }: { navigation: any }) {
     const [listings, setListings] = React.useState(initialListings)
     const [refreshing, setRefreshing] = React.useState(false)
     return (
@@ -32,6 +33,7 @@ export default function ListingScreen() {
                         image={item.image}
                         title={item.title}
                         subTitle={"$" + item.price}
+                        onPress={() => navigation.navigate(routes.LISTINGDEDAILS, item)}
                     />
                 }
                 refreshing={refreshing}
@@ -46,7 +48,3 @@ export default function ListingScreen() {
         </Screen>
     )
 }
-
-const styles = StyleSheet.create({
-
-})

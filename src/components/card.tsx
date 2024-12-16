@@ -1,20 +1,22 @@
 import { Colors } from "@/constants/Colors";
-import { Image, View, Text, StyleSheet, ImageProps } from "react-native";
+import { Image, View, Text, StyleSheet, ImageProps, Pressable } from "react-native";
 
 
-export default function Card({ title, subTitle, image }: { title: string, subTitle: string, image: ImageProps }) {
+export default function Card({ title, subTitle, image, onPress }: { title: string, subTitle: string, image: ImageProps, onPress: () => void }) {
     return (
-        <View style={styles.container}>
-            <Image
-                style={styles.image}
-                resizeMode="cover"
-                source={image}
-            />
-            <View style={styles.itemsContainer}>
-                <Text style={styles.itemTitle}>{title}</Text>
-                <Text style={styles.itemPrice}>{subTitle}</Text>
+        <Pressable onPress={onPress}>
+            <View style={styles.container}>
+                <Image
+                    style={styles.image}
+                    resizeMode="cover"
+                    source={image}
+                />
+                <View style={styles.itemsContainer}>
+                    <Text style={styles.itemTitle}>{title}</Text>
+                    <Text style={styles.itemPrice}>{subTitle}</Text>
+                </View>
             </View>
-        </View>
+        </Pressable>
     )
 }
 

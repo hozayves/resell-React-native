@@ -5,17 +5,19 @@ import { Colors } from '@/constants/Colors'
 import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 
-export default function ListDetailsScreen() {
+export default function ListDetailsScreen({ route }) {
+    const item = route.params;
     return (
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require("../assets/images/jacket.jpg")}
+                source={item.image}
             />
             <View style={styles.detailsContainer}>
-                <Text style={styles.title}>Red jacket for sale</Text>
-                <Text style={styles.price}>$135</Text>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.price}>${item.price}</Text>
             </View>
+
             <ListItem
                 title="Yves Muhoza"
                 subTitle="5 Listing"
@@ -24,6 +26,8 @@ export default function ListDetailsScreen() {
                 onPress={() => console.log("Hi")}
                 renderRightActions={() => <ListItemDeleteAction onPress={() => console.log("Delete")} />}
             />
+
+
         </View>
     )
 }

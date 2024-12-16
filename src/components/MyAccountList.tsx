@@ -2,24 +2,27 @@
 import { Colors } from '@/constants/Colors'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 
 type params = {
     icon: keyof typeof MaterialCommunityIcons.glyphMap,
     name: string,
     color?: 'primary' | 'secondary' | 'yellow',
-    style?: any
+    style?: any,
+    onPress?: () => void
 }
 
-export default function MyAccountList({ icon, name, color = "primary", style }: params) {
+export default function MyAccountList({ icon, name, color = "primary", style, onPress }: params) {
 
     return (
-        <View style={[styles.listing, style]}>
-            <View style={[styles.icon, { backgroundColor: Colors[color] }]}>
-                <MaterialCommunityIcons name={icon} size={18} color="white" />
+        <Pressable onPress={onPress}>
+            <View style={[styles.listing, style]}>
+                <View style={[styles.icon, { backgroundColor: Colors[color] }]}>
+                    <MaterialCommunityIcons name={icon} size={18} color="white" />
+                </View>
+                <Text style={styles.text}>{name}</Text>
             </View>
-            <Text style={styles.text}>{name}</Text>
-        </View>
+        </Pressable>
     )
 }
 

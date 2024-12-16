@@ -1,16 +1,17 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Pressable } from 'react-native'
 
 export default function CategoryPickerItem({ item, onPress }) {
 
     return (
         <View style={styles.container}>
-            <MaterialCommunityIcons
-                style={styles.iconContainer}
-                name={item.iconName}
-                backgroundColor={item.backgroundColor}
-                size={40} />
+            <Pressable onPress={onPress} style={[styles.buttonContainer, { backgroundColor: item.backgroundColor }]}>
+                <MaterialCommunityIcons
+                    name={item.iconName}
+                    style={styles.iconContainer}
+                    size={40} />
+            </Pressable>
             <Text style={styles.label}>{item.label}</Text>
         </View>
     )
@@ -18,17 +19,20 @@ export default function CategoryPickerItem({ item, onPress }) {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 30,
-        paddingVertical: 15,
+        paddingVertical: 10,
         alignItems: 'center',
-        width: '34%'
+        width: '33%'
     },
-    iconContainer: {
-        borderWidth: 1,
-        width: 50,
-        height: 50,
+    buttonContainer: {
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 10,
         borderRadius: 50
+
+    },
+    iconContainer: {
+        width: 40,
+        color: 'white'
     },
     label: {
         marginTop: 5,
