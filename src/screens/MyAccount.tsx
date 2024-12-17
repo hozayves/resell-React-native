@@ -12,7 +12,7 @@ export default function MyAccount({ navigation }) {
     return (
         <View style={styles.profileContainer}>
             <ListItem
-                image={require("../assets/images/mosh.jpg")}
+                image={require("../assets/images/yves.jpg")}
                 title='Yves Muhoza'
                 subTitle='muhozayves2014@gmail.com'
                 style={{ marginTop: 10, marginBottom: 40, }}
