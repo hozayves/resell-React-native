@@ -1,49 +1,42 @@
 import * as React from 'react'
-import { View, StyleSheet, Text, FlatList } from 'react-native'
+import { FlatList, Text } from 'react-native'
 
 import Screen from '@/components/Screen'
 import Card from '@/components/card'
 import routes from '@/navigation/routes'
+import listingApi from '@/api/listings'
+import Button from '@/components/button'
+import ActivityIndicator from '@/components/ActivityIndicator'
+import useApi from '@/hooks/useApi'
 
-const initialListings = [
-    {
-        id: 1,
-        title: 'Red jacket for sale!',
-        price: 151,
-        image: require("../assets/images/jacket.jpg")
-    },
-    {
-        id: 2,
-        title: 'Cough in great condition',
-        price: 1499,
-        image: require("../assets/images/couch.jpg")
-    }
-]
 
 export default function ListingScreen({ navigation }: { navigation: any }) {
-    const [listings, setListings] = React.useState(initialListings)
     const [refreshing, setRefreshing] = React.useState(false)
+    const { request: loadListing, data: listings, error, loading } = useApi(listingApi.getListings)
+
+    React.useEffect(() => {
+        loadListing()
+    }, [])
     return (
         <Screen>
+            {error && <>
+                <Text style={{ textAlign: 'center' }}>Couldn't retrieve the listing!</Text>
+                <Button text='Retry' onPress={() => loadListing()} />
+            </>}
+            <ActivityIndicator visible={false} />
             <FlatList
                 data={listings}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) =>
                     <Card
-                        image={item.image}
+                        imageUrl={item.images[0].url}
                         title={item.title}
                         subTitle={"$" + item.price}
                         onPress={() => navigation.navigate(routes.LISTINGDEDAILS, item)}
                     />
                 }
                 refreshing={refreshing}
-                onRefresh={() =>
-                    setListings([...listings, {
-                        id: 3,
-                        title: 'Comfort chair for sale!',
-                        price: 151,
-                        image: require("../assets/images/jacket.jpg")
-                    }])}
+                onRefresh={() => loadListing()}
             />
         </Screen>
     )
