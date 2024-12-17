@@ -10,19 +10,19 @@ const initialMessage = [
         id: 1,
         title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate',
-        image: require('../assets/images/mosh.jpg')
+        image: require('../assets/images/yves.jpg')
     },
     {
         id: 2,
         title: 'T2',
         description: 'D2',
-        image: require('../assets/images/mosh.jpg')
+        image: require('../assets/images/yves.jpg')
     },
     {
         id: 3,
         title: 'T3',
         description: 'D3',
-        image: require('../assets/images/mosh.jpg')
+        image: require('../assets/images/yves.jpg')
     }
 ]
 
